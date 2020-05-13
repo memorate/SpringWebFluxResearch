@@ -20,8 +20,7 @@ public class ApiRouter {
     @Bean("anchor")
     public RouterFunction<ServerResponse> helloWorld() {
         return RouterFunctions
-                .route(RequestPredicates.GET("/hello")
-                                .and(RequestPredicates.accept(MediaType.TEXT_PLAIN))
-                        , helloWorldHandler::helloWorld);
+                .route(RequestPredicates.GET("/hello/{name}").and(RequestPredicates.accept(MediaType.TEXT_PLAIN)), helloWorldHandler::helloWorld)
+                .andRoute(RequestPredicates.POST("/obtain").and(RequestPredicates.accept(MediaType.APPLICATION_JSON)), helloWorldHandler::obtain);
     }
 }
