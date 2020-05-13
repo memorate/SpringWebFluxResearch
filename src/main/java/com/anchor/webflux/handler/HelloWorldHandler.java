@@ -44,12 +44,16 @@ public class HelloWorldHandler {
         return ServerResponse.ok().contentType(MediaType.TEXT_PLAIN).body(BodyInserters.fromValue("ok"));
     }
 
-    public Mono<ServerResponse> flatmap(ServerRequest request) throws InterruptedException {
+    public Mono<ServerResponse> flatmap(ServerRequest request) {
         Flux.just(1, 2, 3, 4)
                 .log()
                 .flatMap(t -> Flux.just(t * 2).delayElements(Duration.ofSeconds(1)))
                 .subscribe(t -> log.info("get:{}", t));
-        TimeUnit.SECONDS.sleep(10);
+        try {
+            TimeUnit.SECONDS.sleep(10);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return ServerResponse.ok().contentType(MediaType.TEXT_PLAIN).body(BodyInserters.fromValue("ok"));
     }
 }
