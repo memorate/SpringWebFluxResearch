@@ -1,9 +1,9 @@
-package com.anchor.webflux.query;
+package com.anchor.webflux.Query;
 
 import lombok.Data;
 
 @Data
-public class ObtainQuery {
+public class SimpleQuery {
     private long id;
     private String name;
     private String sex;

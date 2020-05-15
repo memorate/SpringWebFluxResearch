@@ -1,6 +1,6 @@
-package com.anchor.webflux.handler;
+package com.anchor.webflux.Handler;
 
-import com.anchor.webflux.query.ObtainQuery;
+import com.anchor.webflux.Query.SimpleQuery;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 
 @Component
 @Slf4j
-public class HelloWorldHandler {
+public class WebFluxHandler {
 
     public Mono<ServerResponse> helloWorld(ServerRequest request) {
         return ServerResponse.ok().contentType(MediaType.TEXT_PLAIN)
@@ -23,11 +23,12 @@ public class HelloWorldHandler {
     }
 
     public Mono<ServerResponse> obtain(ServerRequest request) {
-        return request.bodyToMono(ObtainQuery.class).flatMap(
+        return request.bodyToMono(SimpleQuery.class).flatMap(
                 t -> ServerResponse
                         .ok()
                         .contentType(MediaType.APPLICATION_JSON)
-                        .body(BodyInserters.fromValue(t.toString())));
+                        .body(BodyInserters.fromValue(t.toString()))
+        );
     }
 
     public Mono<ServerResponse> map(ServerRequest request) {
@@ -40,7 +41,8 @@ public class HelloWorldHandler {
                         e.printStackTrace();
                     }
                     return t * 2;
-                }).subscribe(t -> log.info("get:{}", t));
+                })
+                .subscribe(t -> log.info("get:{}", t));
         return ServerResponse.ok().contentType(MediaType.TEXT_PLAIN).body(BodyInserters.fromValue("ok"));
     }
 
@@ -49,11 +51,6 @@ public class HelloWorldHandler {
                 .log()
                 .flatMap(t -> Flux.just(t * 2).delayElements(Duration.ofSeconds(1)))
                 .subscribe(t -> log.info("get:{}", t));
-        try {
-            TimeUnit.SECONDS.sleep(10);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         return ServerResponse.ok().contentType(MediaType.TEXT_PLAIN).body(BodyInserters.fromValue("ok"));
     }
 }
