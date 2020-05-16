@@ -1,19 +1,23 @@
 package com.anchor.webflux.ServiceImpl;
 
 import cn.hutool.core.io.FileUtil;
+import cn.hutool.json.JSONArray;
+import cn.hutool.json.JSONUtil;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.io.InputStream;
 
 @Service
 public class WebFluxServiceImpl {
 
-    public void parseJson(){
-        ClassPathResource resource = new ClassPathResource("data.json");
+//    private ReactiveMongoTemplate
+    public void parseJson() {
         try {
-            String string = FileUtil.readString(resource.getFile(), "UTF-8");
+            String json = FileUtil.readUtf8String(new ClassPathResource("data.json").getFile());
+            JSONArray jsonArray = JSONUtil.parseArray(json);
+            System.out.println("ok");
         } catch (IOException e) {
             e.printStackTrace();
         }
