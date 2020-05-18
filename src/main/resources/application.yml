@@ -3,6 +3,6 @@ spring:
     mongodb:
       host: localhost
       port: 27017
-      database: WebFluxTest
+      database: WebFluxText
       username: anchor
       password: pass#wd2020
