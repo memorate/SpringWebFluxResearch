@@ -22,4 +22,13 @@ public class User{
     @JSONField(name = "Notes")
     private List<UserNote> notes;
 
+    @JSONField(name = "Phones")
+    private List<UserPhone> phones;
+
+    @JSONField(name = "EmailAddresses")
+    private List<UserEmail> emails;
+
+    @JSONField(name = "Cards")
+    private List<UserCard> cards;
+
 }

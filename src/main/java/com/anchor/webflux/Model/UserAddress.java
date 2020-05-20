@@ -19,11 +19,11 @@ public class UserAddress {
     private String county;
 
     @JSONField(name = "Dates")
-    private Dates dates;
+    private AddressDates dates;
 
     @Data
     @NoArgsConstructor
-    public static class Dates {
+    public static class AddressDates {
         @JSONField(name = "Moved In", format = "yyyy-MM-dd'T'HH:mm:ss.SSS")
         private Date movedIn;
 
