@@ -8,6 +8,8 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -29,7 +31,7 @@ public class WebFluxServiceImpl {
             String json = FileUtil.readUtf8String(new ClassPathResource("data.json").getFile());
             List<User> users = JSON.parseArray(json, User.class);
             System.out.println("ok");
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
